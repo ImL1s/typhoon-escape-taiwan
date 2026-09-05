@@ -2,6 +2,8 @@
 
 > 本目錄保存了經典網頁遊戲《Typhoon Escape》的原始離線版本與技術分析，作為《台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)》的對照參考專案。
 
+[⬅️ 返回《台灣大逃亡》專案主頁](../../README.md) | [🎮 啟動台灣在地化旗艦版](../../index.html) | [🏗️ 查看全方位架構技術對照](../../docs/ARCHITECTURE_COMPARISON.md)
+
 ---
 
 ## 📌 專案來源與原始資訊
@@ -88,7 +90,13 @@ python3 server.py
 | **颱風路徑** | 單一隨機直線向量朝日本移動 | 6 大經典路徑（穿心、西北、韋恩迷走、鞍形停滯、藤原效應雙颱） |
 | **氣象雷達** | 單色同心圓與單層圈線 | CWA 5 階七彩動態螺旋雨帶、雙重風級警戒圈、72hr 潛勢預報錐 |
 | **音效系統** | 無（完全靜音） | Web Audio API 純程式合成海洋風暴、空襲警報、神山光束、登陸爆炸 |
-| **登陸判定** | 8 個廣域地方行政區 | 21 個精準沿海鄉鎮、岬角港灣與離島地標 |
+| **登陸判定** | 8 個廣域地方行政區 | 22 個精準沿海鄉鎮、岬角港灣與離島地標 |
 | **社群分享** | 僅支援 𝕏 (Twitter) | 支援 Threads、𝕏、LINE 一鍵發布與戰報卡片複製 |
 
-詳細架構與技術演進比較請參閱：[docs/ARCHITECTURE_COMPARISON.md](../../docs/ARCHITECTURE_COMPARISON.md)。
+---
+
+## 🔗 相關技術文檔連結
+- 📐 [全方位系統架構深度對照 (ARCHITECTURE_COMPARISON.md)](../../docs/ARCHITECTURE_COMPARISON.md)
+- 🏛️ [系統全景架構設計與狀態機 (ARCHITECTURE.md)](../../ARCHITECTURE.md)
+- 🎮 [遊戲設計企劃書 GDD (GAME_DESIGN.md)](../../docs/GAME_DESIGN.md)
+- 🛠️ [開發者維護與建置指引 (DEVELOPMENT_GUIDE.md)](../../docs/DEVELOPMENT_GUIDE.md)

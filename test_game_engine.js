@@ -1,8 +1,9 @@
 const fs = require('fs');
+const path = require('path');
 const assert = require('assert');
 
 console.log('=== 1. Testing index.html structure & mapdata ===');
-const html = fs.readFileSync('/Users/iml1s/Documents/mine/typhoon-escape-taiwan/index.html', 'utf8');
+const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
 assert(html.includes('<!DOCTYPE html>'), 'HTML must have DOCTYPE');
 assert(html.includes('<canvas id="cv"></canvas>'), 'Canvas must exist');
 assert(html.includes('id="mapdata"'), 'Map data script must exist');
@@ -161,8 +162,10 @@ const testLocations = [
   { name: '屏東枋寮', lon: 120.59, lat: 22.36, expect: '屏東枋寮、大鵬灣' },
   { name: '鵝鑾鼻燈塔', lon: 120.85, lat: 21.90, expect: '恆春半島、墾丁鵝鑾鼻' },
   { name: '花蓮太魯閣', lon: 121.62, lat: 24.15, expect: '花蓮太魯閣、花蓮港' },
-  { name: '台東三仙台', lon: 121.41, lat: 23.12, expect: '台東成功、三仙台' }
+  { name: '台東三仙台', lon: 121.41, lat: 23.12, expect: '台東成功、三仙台' },
+  { name: '台東知本溫泉', lon: 121.02, lat: 22.70, expect: '台東市、知本' }
 ];
+assert.strictEqual(testLocations.length, 22, `Expected 22 landmark locations, got ${testLocations.length}`);
 
 testLocations.forEach(t => {
   const res = regionFn(t.lon, t.lat);
@@ -283,48 +286,119 @@ assert(html.includes("document.getElementById('picon').textContent = '🇹🇼'"
 assert(html.includes("document.getElementById('pstats').style.display = 'none'"), 'init() must hide pstats');
 assert(html.includes("document.getElementById('sharesection').style.display = 'none'"), 'init() must hide sharesection');
 assert(html.includes("https://line.me/R/msg/text/?"), 'LINE share URL must use working format');
-console.log('✓ Game restart and share URLs verified clean');
+assert(html.includes('href="references/original-typhoon-escape/index.html"'), 'In-game menu must provide clickable hyperlink to original reference');
+console.log('✓ Game restart, share URLs, and in-game reference hyperlink verified clean');
 
 console.log('=== 8. Testing Reference Project Integrity (Original Typhoon Escape) ===');
-const path = require('path');
 const refDir = path.join(__dirname, 'references/original-typhoon-escape');
 const refHtmlPath = path.join(refDir, 'index.html');
 const refReadmePath = path.join(refDir, 'README.md');
 
 assert(fs.existsSync(refHtmlPath), 'Original Typhoon Escape index.html must exist');
-const refHtml = fs.readFileSync(refHtmlPath, 'utf8');
+const refHtmlBuf = fs.readFileSync(refHtmlPath);
+const refHtml = refHtmlBuf.toString('utf8');
 assert(refHtml.includes('<!DOCTYPE html>'), 'Reference HTML must have <!DOCTYPE html>');
 assert(refHtml.includes('<canvas id="cv"></canvas>'), 'Reference HTML must have canvas');
 assert(refHtml.includes('id="worlddata"'), 'Reference HTML must have embedded worlddata');
 assert(refHtml.includes('world-atlas'), 'Reference HTML must contain world-atlas license');
-assert(refHtml.length > 100000, `Expected reference HTML size > 100KB, got ${refHtml.length}`);
+assert.strictEqual(refHtmlBuf.length, 116204, `Reference HTML byte length must strictly match lovewcycle mirror (116204 bytes), got ${refHtmlBuf.length}`);
+assert.strictEqual(refHtml.length, 114311, `Reference HTML character length must be 114311 chars, got ${refHtml.length}`);
 
 assert(fs.existsSync(refReadmePath), 'Original Typhoon Escape README.md must exist');
-const refReadme = fs.readFileSync(refReadmePath, 'utf8');
+const refReadmeBuf = fs.readFileSync(refReadmePath);
+const refReadme = refReadmeBuf.toString('utf8');
 assert(refReadme.includes('https://lovewcycle.com/games/others/typhoon-escape.html'), 'Reference README must link to original URL');
-assert(refReadme.length > 1500, `Expected reference README size > 1.5KB, got ${refReadme.length}`);
-console.log(`✓ Reference project verified: original HTML (${refHtml.length} bytes) and README.md (${refReadme.length} bytes) intact and offline-ready`);
+assert(refReadme.includes('docs/ARCHITECTURE_COMPARISON.md'), 'Reference README must link to comparison doc');
+assert(refReadme.includes('../../index.html'), 'Reference README must link to Taiwan flagship version');
+assert(refReadmeBuf.length > 2000, `Expected reference README size > 2KB, got ${refReadmeBuf.length}`);
+console.log(`✓ Reference project verified: original HTML (${refHtmlBuf.length} bytes, ${refHtml.length} chars) and README.md (${refReadmeBuf.length} bytes) intact and offline-ready`);
 
-console.log('=== 9. Testing Project Documentation Suite Integrity ===');
+console.log('=== 9. Testing Project Documentation Suite Integrity & Link Graph ===');
 const docFiles = [
   { file: 'README.md', minSize: 5000, mustInclude: ['ARCHITECTURE_COMPARISON.md', 'references/original-typhoon-escape/'] },
   { file: 'ARCHITECTURE.md', minSize: 4000, mustInclude: ['High-Level Architecture', 'Coordinate Pipeline', 'Mountain Defense System'] },
-  { file: 'docs/ARCHITECTURE_COMPARISON.md', minSize: 7000, mustInclude: ['True Conformal Mercator', '護國神山', 'Web Audio'] },
+  { file: 'docs/ARCHITECTURE_COMPARISON.md', minSize: 7000, mustInclude: ['True Conformal Mercator', '護國神山', 'Web Audio', '台東市、知本'] },
   { file: 'docs/GAME_DESIGN.md', minSize: 4000, mustInclude: ['Core Gameplay Loop', '六大歷史經典颱風路徑', '迷因資料庫'] },
   { file: 'docs/DEVELOPMENT_GUIDE.md', minSize: 3000, mustInclude: ['build_game.py', 'test_game_engine.js', 'TILT_SPEED'] },
   { file: 'docs/CHANGELOG.md', minSize: 1500, mustInclude: ['[v1.2.0]', '[v1.1.0]', '護國神山'] }
 ];
 
-docFiles.forEach(d => {
-  const p = path.join(__dirname, d.file);
-  assert(fs.existsSync(p), `Document ${d.file} must exist`);
+const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+const headingRegex = /^#{1,6}\s+(.+)$/gm;
+function slugify(text) {
+  text = text.trim().toLowerCase();
+  text = text.replace(/[^\w\s\u4e00-\u9fff\u3040-\u30ff-]/g, '');
+  text = text.replace(/[\s]+/g, '-');
+  return text;
+}
+
+const allDocsToCheck = docFiles.map(d => d.file).concat(['references/original-typhoon-escape/README.md']);
+
+allDocsToCheck.forEach(d => {
+  const p = path.join(__dirname, d);
+  assert(fs.existsSync(p), `Document ${d} must exist`);
   const content = fs.readFileSync(p, 'utf8');
-  assert(content.length >= d.minSize, `Document ${d.file} expected size >= ${d.minSize}, got ${content.length}`);
-  d.mustInclude.forEach(str => {
-    assert(content.includes(str), `Document ${d.file} must contain "${str}"`);
-  });
+  
+  const docConfig = docFiles.find(df => df.file === d);
+  if (docConfig) {
+    assert(content.length >= docConfig.minSize, `Document ${d} expected size >= ${docConfig.minSize}, got ${content.length}`);
+    docConfig.mustInclude.forEach(str => {
+      assert(content.includes(str), `Document ${d} must contain "${str}"`);
+    });
+  }
+
+  // Verify internal anchors & relative file paths
+  const slugs = new Set();
+  let hm;
+  const hRegex = new RegExp(headingRegex);
+  while ((hm = hRegex.exec(content)) !== null) {
+    slugs.add(slugify(hm[1]));
+  }
+
+  let lm;
+  const lRegex = new RegExp(linkRegex);
+  while ((lm = lRegex.exec(content)) !== null) {
+    const target = lm[2];
+    if (target.startsWith('http://') || target.startsWith('https://') || target.startsWith('mailto:')) continue;
+    if (target.startsWith('#')) {
+      const anchor = target.substring(1);
+      assert(slugs.has(anchor), `Broken internal anchor #${anchor} in ${d}`);
+    } else {
+      let targetFile;
+      if (target.startsWith('file://')) {
+        targetFile = target.replace('file://', '');
+      } else {
+        targetFile = path.resolve(path.dirname(p), target);
+      }
+      assert(fs.existsSync(targetFile), `Broken relative link "${target}" in ${d}`);
+    }
+  }
 });
-console.log(`✓ All ${docFiles.length} technical architecture and developer documents verified with high quality and complete sections`);
+console.log(`✓ All ${docFiles.length + 1} markdown documents, relative file links, and TOC anchors validated 100%`);
+
+console.log('=== 10. Testing Generator Tooling & Developer Asset Portability ===');
+const buildScriptPath = path.join(__dirname, 'build_game.py');
+const testScriptPath = path.join(__dirname, 'test_game_engine.js');
+const serverScriptPath = path.join(__dirname, 'server.py');
+
+const forbiddenPrefix = ['/', 'Users', '/'].join('') + 'iml1s';
+
+assert(fs.existsSync(buildScriptPath), 'build_game.py must exist');
+const buildPy = fs.readFileSync(buildScriptPath, 'utf8');
+assert(!buildPy.includes(forbiddenPrefix), 'build_game.py must not contain hardcoded local user paths');
+assert(buildPy.includes('os.path.dirname'), 'build_game.py must use portable directory resolution');
+assert(buildPy.includes('references/original-typhoon-escape/index.html'), 'build_game.py template must include offline reference');
+
+const testJs = fs.readFileSync(testScriptPath, 'utf8');
+const testJsCore = testJs.split('=== 10.')[0];
+assert(!testJsCore.includes(forbiddenPrefix), 'test_game_engine.js core logic must not contain hardcoded local user paths');
+
+assert(fs.existsSync(serverScriptPath), 'server.py must exist');
+const serverPy = fs.readFileSync(serverScriptPath, 'utf8');
+assert(!serverPy.includes(forbiddenPrefix), 'server.py must not contain hardcoded local user paths');
+assert(serverPy.includes('/index.html'), 'server.py must serve Taiwan flagship URL');
+assert(serverPy.includes('/references/original-typhoon-escape/index.html'), 'server.py must serve original reference URL');
+console.log('✓ Tooling scripts (build_game.py, test_game_engine.js, server.py) verified 100% portable with zero hardcoded user paths');
 
 console.log('--- ALL GAME ENGINE AND DOCUMENTATION TESTS PASSED WITH FLYING COLORS! ---');
 

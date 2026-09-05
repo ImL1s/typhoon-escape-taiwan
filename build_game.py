@@ -1,6 +1,10 @@
 import json, os
 
-with open('/Users/iml1s/Documents/mine/typhoon-escape-taiwan/map_data.json', encoding='utf-8') as f:
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MAP_DATA_PATH = os.path.join(BASE_DIR, 'map_data.json')
+INDEX_HTML_PATH = os.path.join(BASE_DIR, 'index.html')
+
+with open(MAP_DATA_PATH, encoding='utf-8') as f:
     map_data = json.load(f)
 
 map_json_str = json.dumps(map_data, separators=(',', ':'))
@@ -360,6 +364,7 @@ html_content = f'''<!DOCTYPE html>
     <p><b>地圖數據：</b>基於 Natural Earth 公共領域海岸線數據（高解析度 10m 台灣本島與離島群、50m 東亞陸塊），採 1:1 等角麥卡托投影無形變還原。</p>
     <p><b>颱風命名：</b>採用世界氣象組織（WMO）西北太平洋颱風命名表及台灣中央氣象署（CWA）官方繁體中文譯名。</p>
     <p><b>音效系統：</b>採用 Web Audio API 純程式合成技術（含海洋風暴粉紅噪音合成環境音），無需任何外部音訊檔案。</p>
+    <p><b>原始致敬作品：</b>靈感源自日本經典《Typhoon Escape》（by lovewcycle），本專案已完整收錄其原始離線對照版本於 <a href="references/original-typhoon-escape/index.html" target="_blank" style="color: #00D2FF; text-decoration: underline;">references/original-typhoon-escape/</a>（點擊直接開新視窗對照體驗）。</p>
   </div>
   
   <div id="toast">已複製戰績到剪貼簿！</div>
@@ -1511,7 +1516,7 @@ window.addEventListener('resize', resize);
 </html>
 '''
 
-with open('/Users/iml1s/Documents/mine/typhoon-escape-taiwan/index.html', 'w', encoding='utf-8') as f:
+with open(INDEX_HTML_PATH, 'w', encoding='utf-8') as f:
     f.write(html_content)
 
-print(f'Successfully built index.html! Size: {os.path.getsize("/Users/iml1s/Documents/mine/typhoon-escape-taiwan/index.html")} bytes')
+print(f'Successfully built index.html! Size: {os.path.getsize(INDEX_HTML_PATH)} bytes')
