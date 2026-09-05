@@ -6,10 +6,11 @@
 
 <p align="center">
   <a href="https://iml1s.github.io/typhoon-escape-taiwan/"><img src="https://img.shields.io/badge/🎮_線上立即玩-Play_Now-00D2FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Play Online"></a>
-  <a href="https://github.com/ImL1s/typhoon-escape-taiwan/releases"><img src="https://img.shields.io/github/v/release/ImL1s/typhoon-escape-taiwan?style=for-the-badge&color=F5B400" alt="GitHub Release"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="License: MIT"></a>
+  <a href="https://github.com/ImL1s/typhoon-escape-taiwan"><img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Repository"></a>
+  <a href="https://github.com/ImL1s/typhoon-escape-taiwan/stargazers"><img src="https://img.shields.io/github/stars/ImL1s/typhoon-escape-taiwan?style=for-the-badge&color=F5B400" alt="GitHub Stars"></a>
+  <a href="https://github.com/ImL1s/typhoon-escape-taiwan/releases"><img src="https://img.shields.io/github/v/release/ImL1s/typhoon-escape-taiwan?style=for-the-badge&color=4CAF50" alt="GitHub Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/Dependencies-Zero-brightgreen?style=for-the-badge" alt="Zero Dependencies">
-  <img src="https://img.shields.io/badge/Platform-Web%20%2F%20Mobile-blue?style=for-the-badge" alt="Platform: Web & Mobile">
 </p>
 
 <h3 align="center">
@@ -112,12 +113,15 @@
 
 ## 🚀 快速啟動
 
-### 方式一：直接雙擊開啟（最簡單，零安裝）
-直接用 Chrome、Safari、Edge、Firefox 點擊開啟本目錄下的 `index.html` 即可立即遊玩！
-
-### 方式二：使用內附 Python 伺服器
+### 方式一：取得原始碼並直接執行
 ```bash
-cd ~/Documents/mine/typhoon-escape-taiwan
+git clone https://github.com/ImL1s/typhoon-escape-taiwan.git
+cd typhoon-escape-taiwan
+```
+直接用 Chrome、Safari、Edge、Firefox 點擊開啟目錄下的 `index.html` 即可立即遊玩！
+
+### 方式二：使用內附 Python 本地伺服器
+```bash
 python3 server.py
 ```
 終端機會自動啟動伺服器並在瀏覽器中開啟 `http://localhost:8080/index.html`。
@@ -206,8 +210,13 @@ node test_game_engine.js
 
 ---
 
-## 📄 授權條款 (License)
+## 📄 授權條款與社群 (License & Community)
 
 本專案採用 [MIT License](LICENSE) 授權開放。
+
+歡迎透過 GitHub 進行交流與貢獻：
+- **GitHub 專案倉庫：** [https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)
+- **問題回報與新地標建議：** [https://github.com/ImL1s/typhoon-escape-taiwan/issues](https://github.com/ImL1s/typhoon-escape-taiwan/issues)
+- **線上立即玩：** [https://iml1s.github.io/typhoon-escape-taiwan/](https://iml1s.github.io/typhoon-escape-taiwan/)
 
 

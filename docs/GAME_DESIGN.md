@@ -2,7 +2,9 @@
 
 > 專案名稱：台灣大逃亡：颱風來啦！ (Typhoon Escape Taiwan)  
 > 核心類型：俯視角氣象動作逃脫／街機生存反應  
-> 目標平台：現代跨平台網頁瀏覽器（Mobile First + Desktop Keyboard/Mouse）
+> 目標平台：現代跨平台網頁瀏覽器（Mobile First + Desktop Keyboard/Mouse）  
+> 官方 GitHub 專案倉庫：[https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)
+
 
 ---
 

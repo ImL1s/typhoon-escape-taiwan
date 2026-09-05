@@ -1,6 +1,7 @@
 # 🏛️ 系統架構設計文件 (System Architecture)
 
 > 《台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)》系統架構全景、子系統設計、數學幾何模型與軟體管線全解析。
+> 官方 GitHub 專案倉庫：[https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)
 
 ---
 
@@ -34,6 +35,7 @@
 |   - #ticker (Real-time Meteorological Marquee)                                        |
 |   - #popup (Start / Game Over / Victory Modal)                                         |
 |   - #menu (Meteorological & Historical Guide)                                         |
+|   - #githubbtn (GitHub Repository Direct Link)                                        |
 +---------------------------------------------------------------------------------------+
 |  [Game Core Loop & Engine]                                                            |
 |                                                                                       |

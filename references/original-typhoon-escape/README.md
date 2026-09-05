@@ -2,7 +2,7 @@
 
 > 本目錄保存了經典網頁遊戲《Typhoon Escape》的原始離線版本與技術分析，作為《台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)》的對照參考專案。
 
-[⬅️ 返回《台灣大逃亡》專案主頁](../../README.md) | [🎮 啟動台灣在地化旗艦版](../../index.html) | [🏗️ 查看全方位架構技術對照](../../docs/ARCHITECTURE_COMPARISON.md)
+[⬅️ 返回《台灣大逃亡》專案主頁](../../README.md) | [🎮 啟動台灣在地化旗艦版](../../index.html) | [🏗️ 查看全方位架構技術對照](../../docs/ARCHITECTURE_COMPARISON.md) | [🐙 GitHub 專案倉庫](https://github.com/ImL1s/typhoon-escape-taiwan)
 
 ---
 

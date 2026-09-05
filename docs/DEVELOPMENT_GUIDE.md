@@ -24,6 +24,12 @@
 - **Python：** 3.8 以上（內建模組 `http.server`, `urllib` 用於預覽伺服器與地圖建置）。
 - **網頁瀏覽器：** 支援 ES6+ 與 Web Audio API 的現代瀏覽器（Chrome 90+, Safari 15+, Edge 90+, Firefox 90+）。
 
+### 複製專案庫 (Clone Repository)
+```bash
+git clone https://github.com/ImL1s/typhoon-escape-taiwan.git
+cd typhoon-escape-taiwan
+```
+
 ---
 
 ## 2. 專案目錄結構詳解
@@ -144,3 +150,8 @@ var FUJI_FORCE = 0.7; // 雙颱互繞公轉角速度倍率
 1. **零外部伺服器依賴：** 不引用 CDN（如 unpkg, cdnjs），不引用 Google Fonts，不下載外部音效或圖檔。
 2. **本機雙擊即玩：** 確保直接使用 `file://` 協定開啟 [index.html](file:///Users/iml1s/Documents/mine/typhoon-escape-taiwan/index.html) 時所有功能 100% 正常。
 3. **離線存檔支援：** 遊戲設定（如音效開關、最高分紀錄）保存在使用者的 `localStorage` 中。
+4. **Git 與 GitHub 協作同步：**
+   - 官方 GitHub 專案倉庫：[https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)
+   - 發布前必須執行 `python3 build_game.py` 重新編譯幾何與模板，確保 `index.html` 狀態與代碼庫完全同步。
+   - 發布前必須執行 `node test_game_engine.js` 通過所有測試。
+

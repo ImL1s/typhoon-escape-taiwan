@@ -16,7 +16,17 @@ html_content = f'''<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>台灣大逃亡：颱風來啦！ - 開著台灣島逃離西北太平洋暴風圈</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌀</text></svg>">
+<link rel="apple-touch-icon" href="assets/icon.jpg">
 <meta name="description" content="全島開動！駕駛台灣島在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://iml1s.github.io/typhoon-escape-taiwan/">
+<meta property="og:title" content="台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)">
+<meta property="og:description" content="全島開動！駕駛台灣島在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！">
+<meta property="og:image" content="https://iml1s.github.io/typhoon-escape-taiwan/assets/banner.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)">
+<meta name="twitter:description" content="全島開動！駕駛台灣島在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！">
+<meta name="twitter:image" content="https://iml1s.github.io/typhoon-escape-taiwan/assets/banner.jpg">
 <style>
   :root {{
     --c-bg: #0B162C;
@@ -58,10 +68,10 @@ html_content = f'''<!DOCTYPE html>
     border-radius: 8px;
     padding: 6px 12px;
     font-weight: 500;
+    display: flex; gap: 6px; align-items: center;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-    display: flex; align-items: center; gap: 6px;
   }}
   .hud-date {{ font-size: 15px; font-weight: 700; color: #FFF; }}
   .hud-sub {{ font-size: 12px; color: #A0C4E8; }}
@@ -81,8 +91,17 @@ html_content = f'''<!DOCTYPE html>
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 14px rgba(0,0,0,0.35);
     transition: all 0.15s ease;
+    text-decoration: none;
+  }}
+  .ctrl-btn:hover {{
+    border-color: rgba(0, 210, 255, 0.5);
+    color: #00D2FF;
   }}
   .ctrl-btn:active {{ transform: scale(0.92); background: rgba(0, 210, 255, 0.25); }}
+  @media (max-width: 400px) {{
+    .top-btns {{ gap: 6px; right: 10px; top: 10px; }}
+    .ctrl-btn {{ width: 38px; height: 38px; font-size: 16px; }}
+  }}
   
   /* Virtual Joystick */
   #pad {{
@@ -296,6 +315,9 @@ html_content = f'''<!DOCTYPE html>
     <button id="soundbtn" class="ctrl-btn" aria-label="音效開關" title="音效開關">🔊</button>
     <button id="pausebtn" class="ctrl-btn" aria-label="暫停" title="暫停遊戲 (Space/P)">⏸️</button>
     <button id="menubtn" class="ctrl-btn" aria-label="選單說明" title="遊戲指南">ℹ️</button>
+    <a id="githubbtn" class="ctrl-btn" href="https://github.com/ImL1s/typhoon-escape-taiwan" target="_blank" rel="noopener noreferrer" aria-label="GitHub 專案原始碼" title="GitHub 原始碼庫">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
   </div>
   
   <!-- Virtual Joystick -->
@@ -332,6 +354,13 @@ html_content = f'''<!DOCTYPE html>
         <button id="linebtn" class="btn-share">💬 LINE</button>
       </div>
     </div>
+    
+    <div class="popup-footer" style="margin-top: 14px; text-align: center;">
+      <a href="https://github.com/ImL1s/typhoon-escape-taiwan" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #8DB9E8; text-decoration: none; font-size: 12px; transition: color 0.15s;" onmouseover="this.style.color='#00D2FF'" onmouseout="this.style.color='#8DB9E8'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub: ImL1s/typhoon-escape-taiwan</span>
+      </a>
+    </div>
   </div>
   
   <!-- Menu Modal -->
@@ -365,6 +394,11 @@ html_content = f'''<!DOCTYPE html>
     <p><b>颱風命名：</b>採用世界氣象組織（WMO）西北太平洋颱風命名表及台灣中央氣象署（CWA）官方繁體中文譯名。</p>
     <p><b>音效系統：</b>採用 Web Audio API 純程式合成技術（含海洋風暴粉紅噪音合成環境音），無需任何外部音訊檔案。</p>
     <p><b>原始致敬作品：</b>靈感源自日本經典《Typhoon Escape》（by lovewcycle），本專案已完整收錄其原始離線對照版本於 <a href="references/original-typhoon-escape/index.html" target="_blank" style="color: #00D2FF; text-decoration: underline;">references/original-typhoon-escape/</a>（點擊直接開新視窗對照體驗）。</p>
+    
+    <h3>🐙 開源專案與原始碼</h3>
+    <p>本專案採用 MIT 授權完全開源，完整原始碼、架構手冊與氣象模擬演算法皆託管於 GitHub：</p>
+    <p><a href="https://github.com/ImL1s/typhoon-escape-taiwan" target="_blank" rel="noopener noreferrer" style="color: #00D2FF; text-decoration: underline; font-weight: 600; word-break: break-all;">👉 GitHub 專案庫：https://github.com/ImL1s/typhoon-escape-taiwan</a></p>
+    <p>歡迎給予 Star ⭐ 收藏支持、提出 Issue 建議或提交 PR 共同擴充地標與迷因！</p>
   </div>
   
   <div id="toast">已複製戰績到剪貼簿！</div>
@@ -1224,6 +1258,10 @@ function showGameOver() {{
     document.getElementById('bestdays').textContent = bestDays + ' 天';
   }}
   
+  if (!hit) {{
+    hit = {{ no: 1, intensity: '強烈颱風', name: '強烈颱風', region: '全島沿海' }};
+  }}
+  
   document.getElementById('picon').textContent = '💥';
   document.getElementById('ptitle').textContent = '颱風登陸！風雨肆虐全台！';
   document.getElementById('psub').textContent = '面對大自然的狂暴威力，台灣島光榮迎戰到底！';
@@ -1254,10 +1292,13 @@ function showToast(msg) {{
 function generateShareText() {{
   var days = Math.floor(elapsed);
   var title = getEvaluationTitle(days);
+  var hitDesc = hit ? ('第 ' + hit.no + ' 號颱風『' + hit.name + '』於【' + hit.region + '】登陸。\\n') : '';
   return '🌊【台灣大逃亡：颱風來啦！】\\n' +
          '我駕駛整座台灣島在西北太平洋狂暴漂移，在颱風季堅守了 ' + days + ' 天！\\n' +
          '閃避了 ' + evadedCount + ' 個強烈颱風，榮獲評級：' + title + '！\\n' +
-         '第 ' + hit.no + ' 號颱風『' + hit.name + '』於【' + hit.region + '】登陸。\\n\\n' +
+         hitDesc + '\\n' +
+         '🎮 免費線上立即玩：https://iml1s.github.io/typhoon-escape-taiwan/\\n' +
+         '🐙 開源專案：https://github.com/ImL1s/typhoon-escape-taiwan\\n' +
          '#台灣大逃亡 #颱風エスケープ #護國神山';
 }}
 

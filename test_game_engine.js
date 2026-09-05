@@ -287,6 +287,8 @@ assert(html.includes("document.getElementById('pstats').style.display = 'none'")
 assert(html.includes("document.getElementById('sharesection').style.display = 'none'"), 'init() must hide sharesection');
 assert(html.includes("https://line.me/R/msg/text/?"), 'LINE share URL must use working format');
 assert(html.includes('href="references/original-typhoon-escape/index.html"'), 'In-game menu must provide clickable hyperlink to original reference');
+assert(html.includes('id="githubbtn"'), 'index.html must include GitHub button in top-btns');
+assert(html.includes('https://github.com/ImL1s/typhoon-escape-taiwan'), 'index.html must link to user GitHub repo');
 assert(html.includes('apple-touch-icon'), 'index.html must include apple-touch-icon for mobile home screen');
 assert(html.includes('https://iml1s.github.io/typhoon-escape-taiwan/'), 'generateShareText must include live game URL for viral sharing');
 assert(html.includes('property="og:image"'), 'index.html must include og:image');
@@ -328,12 +330,12 @@ console.log(`✓ Reference project verified: original HTML (${refHtmlBuf.length}
 
 console.log('=== 9. Testing Project Documentation Suite Integrity & Link Graph ===');
 const docFiles = [
-  { file: 'README.md', minSize: 5000, mustInclude: ['ARCHITECTURE_COMPARISON.md', 'references/original-typhoon-escape/'] },
-  { file: 'ARCHITECTURE.md', minSize: 4000, mustInclude: ['High-Level Architecture', 'Coordinate Pipeline', 'Mountain Defense System'] },
-  { file: 'docs/ARCHITECTURE_COMPARISON.md', minSize: 7000, mustInclude: ['True Conformal Mercator', '護國神山', 'Web Audio', '台東市、知本'] },
-  { file: 'docs/GAME_DESIGN.md', minSize: 4000, mustInclude: ['Core Gameplay Loop', '六大歷史經典颱風路徑', '迷因資料庫'] },
-  { file: 'docs/DEVELOPMENT_GUIDE.md', minSize: 3000, mustInclude: ['build_game.py', 'test_game_engine.js', 'TILT_SPEED'] },
-  { file: 'docs/CHANGELOG.md', minSize: 1500, mustInclude: ['[v1.2.0]', '[v1.1.0]', '護國神山'] }
+  { file: 'README.md', minSize: 5000, mustInclude: ['ARCHITECTURE_COMPARISON.md', 'references/original-typhoon-escape/', 'https://github.com/ImL1s/typhoon-escape-taiwan'] },
+  { file: 'ARCHITECTURE.md', minSize: 4000, mustInclude: ['High-Level Architecture', 'Coordinate Pipeline', 'Mountain Defense System', 'https://github.com/ImL1s/typhoon-escape-taiwan'] },
+  { file: 'docs/ARCHITECTURE_COMPARISON.md', minSize: 7000, mustInclude: ['True Conformal Mercator', '護國神山', 'Web Audio', '台東市、知本', 'https://github.com/ImL1s/typhoon-escape-taiwan'] },
+  { file: 'docs/GAME_DESIGN.md', minSize: 4000, mustInclude: ['Core Gameplay Loop', '六大歷史經典颱風路徑', '迷因資料庫', 'https://github.com/ImL1s/typhoon-escape-taiwan'] },
+  { file: 'docs/DEVELOPMENT_GUIDE.md', minSize: 3000, mustInclude: ['build_game.py', 'test_game_engine.js', 'TILT_SPEED', 'https://github.com/ImL1s/typhoon-escape-taiwan'] },
+  { file: 'docs/CHANGELOG.md', minSize: 1500, mustInclude: ['[v1.2.1]', '[v1.2.0]', '[v1.1.0]', '護國神山'] }
 ];
 
 const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;

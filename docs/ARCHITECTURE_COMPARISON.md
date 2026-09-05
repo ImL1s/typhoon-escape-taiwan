@@ -1,6 +1,7 @@
 # 🏗️ 架構技術評估與對照分析 (Architecture Comparison)
 
 > 本文件針對原始日本版《**Typhoon Escape**》與台灣在地化升級版《**台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)**》進行全方位系統架構、數學模型、物理模擬、音效引擎、圖形渲染及在地化工程的深度技術對照與剖析。
+> 官方 GitHub 專案倉庫：[https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)
 
 ---
 
@@ -26,6 +27,7 @@
 | 評估項目 | 原版 Typhoon Escape (日本列島) | 台灣大逃亡 (Typhoon Escape Taiwan) |
 | :--- | :--- | :--- |
 | **發布形態** | 單一 HTML 網頁應用（~116 KB） | 單一 HTML 網頁應用（~276 KB，Zero Dependencies） |
+| **開源倉庫** | lovewcycle 原始作品 | [ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan) |
 | **核心趣味** | 「開著整個國家避難」的荒謬超現實感 | 深度融入台灣「放颱風假、護國神山防衛、氣象署迷因」的本土集體記憶 |
 | **地圖範疇** | 西北太平洋局部（偏北，聚焦點在日本） | 西北太平洋與南海海域（經度 115°E~130°E、緯度 18°N~28°N） |
 | **地圖精度** | 中低精度世界陸塊（TopoJSON arcs 簡化） | 10m 等級超高精度台灣海岸線 + 50m 東亞海岸線 |

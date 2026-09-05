@@ -4,6 +4,16 @@
 
 ---
 
+## [v1.2.1] - 2026-09-05 (GitHub 專案倉庫整合與開源社群入口)
+
+### ✨ 新增功能與介面優化
+- **右上角 GitHub 快捷按鈕：** 在遊戲畫面上方控制列新增 GitHub 原始碼庫按鈕（`#githubbtn`），支援高畫質向量 SVG 圖示與懸停微動效應，一鍵直達開源專案倉庫。
+- **遊戲指南開源專區：** 遊戲說明選單（`#menu`）新增「🐙 開源專案與原始碼」章節，附帶倉庫直達連結與協作指引。
+- **彈窗與社群分享整合：** 遊戲結束與啟動彈窗（`#popup`）底部整合 GitHub 開源專案標籤；戰報分享卡片文字生成器（`generateShareText`）自動附帶 GitHub 倉庫與即時線上遊玩連結。
+- **全方位文檔與測試同步：** `README.md`、`ARCHITECTURE.md`、`DEVELOPMENT_GUIDE.md`、`ARCHITECTURE_COMPARISON.md`、`GAME_DESIGN.md` 與 `test_game_engine.js` 完整串接官方 GitHub 倉庫 [https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)。
+
+---
+
 ## [v1.2.0] - 2026-09-05 (文檔、架構評估與離線參考專案完善)
 
 ### ✨ 新增功能與資產整理
