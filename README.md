@@ -1,6 +1,34 @@
+<p align="center">
+  <img src="assets/banner.jpg" alt="台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)" width="100%">
+</p>
+
 # 🇹🇼 台灣大逃亡：颱風來啦！(Typhoon Escape Taiwan)
 
-> 全島開動！駕駛整座台灣島，在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！
+<p align="center">
+  <a href="https://iml1s.github.io/typhoon-escape-taiwan/"><img src="https://img.shields.io/badge/🎮_線上立即玩-Play_Now-00D2FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Play Online"></a>
+  <a href="https://github.com/ImL1s/typhoon-escape-taiwan/releases"><img src="https://img.shields.io/github/v/release/ImL1s/typhoon-escape-taiwan?style=for-the-badge&color=F5B400" alt="GitHub Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-4CAF50?style=for-the-badge" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/Dependencies-Zero-brightgreen?style=for-the-badge" alt="Zero Dependencies">
+  <img src="https://img.shields.io/badge/Platform-Web%20%2F%20Mobile-blue?style=for-the-badge" alt="Platform: Web & Mobile">
+</p>
+
+<h3 align="center">
+  🌀 <b><a href="https://iml1s.github.io/typhoon-escape-taiwan/">點擊此處立即線上遊玩 (Click to Play Online)</a></b> 🌀
+</h3>
+
+<p align="center">
+  <i>全島開動！駕駛整座台灣島，在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！<br>
+  免下載、免安裝，手機觸控、平板、電腦瀏覽器隨開即玩！</i>
+</p>
+
+---
+
+## 📸 遊戲畫面預覽 (Screenshots)
+
+<p align="center">
+  <img src="assets/gameplay_action.png" alt="遊戲實戰畫面：雙颱夾擊與中央山脈護國神山防衛結界" width="49%">
+  <img src="assets/gameplay.png" alt="遊戲標題畫面：出發啟動台灣島" width="49%">
+</p>
 
 ---
 
@@ -162,4 +190,24 @@ node test_game_engine.js
 - 地理數據：Natural Earth（Public Domain）
 - 颱風命名：世界氣象組織（WMO）西北太平洋颱風命名表、中華民國交通部中央氣象署（CWA）
 - 原始靈感與參考原型：[https://lovewcycle.com/games/others/typhoon-escape.html](https://lovewcycle.com/games/others/typhoon-escape.html)（收錄於 [references/original-typhoon-escape/](references/original-typhoon-escape/README.md)）
+
+---
+
+## 🌐 English Overview
+
+**Typhoon Escape Taiwan (台灣大逃亡：颱風來啦！)** is a pure HTML5 web arcade survival game inspired by the classic *Typhoon Escape*. Navigate the entire island of Taiwan across the Northwestern Pacific and South China Sea while dodging relentless typhoons!
+
+- **True Conformal Mercator Projection:** Mathematical aspect-ratio matching eliminates vertical distortion for true cartographic precision.
+- **Central Mountain Range Defense System:** Grazing typhoons have their wind radius and structural intensity shredded by the mountain barrier.
+- **Dynamic Weather Radar Simulation:** Realistic spiral rainbands, dual warning circles (Level 7 gale & Level 10 storm), and 72-hour forecast cones.
+- **22 Landfall Landmarks:** Accurate geographic detection when typhoons make landfall across coastal counties and offshore islands.
+- **Procedural Web Audio Engine:** Atmospheric ocean wind, air raid siren, and storm effects synthesized dynamically in code.
+- **Zero Dependencies:** Single self-contained HTML file, offline playable, mobile touch & desktop keyboard friendly!
+
+---
+
+## 📄 授權條款 (License)
+
+本專案採用 [MIT License](LICENSE) 授權開放。
+
 
