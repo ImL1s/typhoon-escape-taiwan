@@ -7,9 +7,11 @@
 ## [v1.2.1] - 2026-09-05 (GitHub 專案倉庫整合與開源社群入口)
 
 ### ✨ 新增功能與介面優化
-- **右上角 GitHub 快捷按鈕：** 在遊戲畫面上方控制列新增 GitHub 原始碼庫按鈕（`#githubbtn`），支援高畫質向量 SVG 圖示與懸停微動效應，一鍵直達開源專案倉庫。
-- **遊戲指南開源專區：** 遊戲說明選單（`#menu`）新增「🐙 開源專案與原始碼」章節，附帶倉庫直達連結與協作指引。
-- **彈窗與社群分享整合：** 遊戲結束與啟動彈窗（`#popup`）底部整合 GitHub 開源專案標籤；戰報分享卡片文字生成器（`generateShareText`）自動附帶 GitHub 倉庫與即時線上遊玩連結。
+- **右上角 GitHub 快捷按鈕：** 在遊戲畫面上方控制列新增 GitHub 原始碼庫按鈕（`#githubbtn`），支援高畫質向量 SVG 圖示與懸停微動效應，一鍵直達開源專案倉庫，點擊自動暫停遊戲避免玩家漂移觸礁。
+- **暫停對話框與專案直達（Pause Modal）：** 新增暫停彈窗（`#pausemodal`），顯示即時堅守天數與閃避成果，整合「繼續遊戲」、「遊戲指南」與 GitHub 專案倉庫直達鏈結，解決暫停狀態無操作導引問題。
+- **遊戲指南開源專區：** 遊戲說明選單（`#menu`）新增「🐙 開源專案與原始碼」章節，附帶倉庫直達連結與協作指引；開啟指南自動暫停遊戲。
+- **彈窗與社群分享整合：** 遊戲結束與啟動彈窗（`#popup`）底部整合 GitHub 開源專案標籤，並增加 `max-height: 90vh` 滾動保護防止小螢幕溢出；戰報分享卡片文字生成器（`generateShareText`）自動附帶 GitHub 倉庫與即時線上遊玩連結。
+- **行動端頂部導航排版優化：** 新增 `@media (max-width: 480px)` 與 `@media (max-width: 390px)` 響應式佈局，徹底消除窄螢幕下 4 控制按鈕與氣象 HUD 徽章之重疊碰撞。
 - **全方位文檔與測試同步：** `README.md`、`ARCHITECTURE.md`、`DEVELOPMENT_GUIDE.md`、`ARCHITECTURE_COMPARISON.md`、`GAME_DESIGN.md` 與 `test_game_engine.js` 完整串接官方 GitHub 倉庫 [https://github.com/ImL1s/typhoon-escape-taiwan](https://github.com/ImL1s/typhoon-escape-taiwan)。
 
 ---

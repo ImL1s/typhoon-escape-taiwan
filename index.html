@@ -87,9 +87,22 @@
     color: #00D2FF;
   }
   .ctrl-btn:active { transform: scale(0.92); background: rgba(0, 210, 255, 0.25); }
-  @media (max-width: 400px) {
-    .top-btns { gap: 6px; right: 10px; top: 10px; }
-    .ctrl-btn { width: 38px; height: 38px; font-size: 16px; }
+  @media (max-width: 480px) {
+    .hud { left: 8px; top: 8px; gap: 4px; }
+    .hud-badge { padding: 4px 8px; font-size: 11.5px; gap: 4px; border-radius: 6px; }
+    .hud-date { font-size: 12px; }
+    .hud-sub { font-size: 10.5px; }
+    .top-btns { gap: 5px; right: 8px; top: 8px; }
+    .ctrl-btn { width: 36px; height: 36px; font-size: 15px; border-radius: 8px; }
+    .ctrl-btn svg { width: 17px; height: 17px; }
+  }
+  @media (max-width: 390px) {
+    .hud-date { font-size: 11px; }
+    .hud-sub { display: none; }
+    .hud-badge { padding: 3px 6px; font-size: 10px; }
+    .top-btns { gap: 4px; right: 6px; top: 6px; }
+    .ctrl-btn { width: 33px; height: 33px; font-size: 14px; }
+    .ctrl-btn svg { width: 16px; height: 16px; }
   }
   
   /* Virtual Joystick */
@@ -158,7 +171,7 @@
   /* Popups */
   #popup {
     position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
-    width: min(88vw, 360px);
+    width: min(88vw, 360px); max-height: 90vh; overflow-y: auto;
     background: var(--c-card-bg);
     color: var(--c-text);
     border-radius: 20px;
@@ -169,6 +182,31 @@
     z-index: 50; transition: all 0.25s ease;
   }
   #popup.hidden { display: none; }
+  
+  /* Pause Modal */
+  #pausemodal {
+    position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%);
+    width: min(88vw, 360px); max-height: 90vh; overflow-y: auto;
+    background: var(--c-card-bg);
+    color: var(--c-text);
+    border-radius: 20px;
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(0,210,255,0.25);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    z-index: 60; transition: all 0.25s ease;
+  }
+  #pausemodal.hidden { display: none; }
+  #pausemodal .logo-icon {
+    font-size: 42px; margin-bottom: 8px; display: inline-block;
+  }
+  #pausemodal h2 {
+    margin: 0 0 8px; font-size: 22px; font-weight: 800;
+    color: #FFF; letter-spacing: 0.5px;
+  }
+  #pausemodal .subhead {
+    font-size: 13.5px; color: #8DB9E8; margin-bottom: 18px; line-height: 1.5;
+  }
   #popup .logo-icon {
     font-size: 46px; margin-bottom: 8px; display: inline-block;
     filter: drop-shadow(0 4px 10px rgba(0,210,255,0.4));
@@ -342,6 +380,25 @@
         <button id="xbtn" class="btn-share">𝕏 Post</button>
         <button id="linebtn" class="btn-share">💬 LINE</button>
       </div>
+    </div>
+    
+    <div class="popup-footer" style="margin-top: 14px; text-align: center;">
+      <a href="https://github.com/ImL1s/typhoon-escape-taiwan" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: #8DB9E8; text-decoration: none; font-size: 12px; transition: color 0.15s;" onmouseover="this.style.color='#00D2FF'" onmouseout="this.style.color='#8DB9E8'">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub: ImL1s/typhoon-escape-taiwan</span>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Pause Modal -->
+  <div id="pausemodal" class="hidden">
+    <div class="logo-icon">⏸️</div>
+    <h2>遊戲暫停中</h2>
+    <div class="subhead" id="pause-stats">台灣島暫時拋錨停泊</div>
+    
+    <div class="pause-actions">
+      <button id="resumebtn" class="btn-primary" style="margin-bottom: 10px;">▶️ 繼續守護台灣</button>
+      <button id="pause-menubtn" class="btn-copy" style="margin-bottom: 10px;">📖 查看遊戲指南與防衛機制</button>
     </div>
     
     <div class="popup-footer" style="margin-top: 14px; text-align: center;">
@@ -557,20 +614,48 @@ soundBtn.onclick = function() {
   showToast(soundEnabled ? '音效已開啟' : '音效已靜音');
 };
 
-// Pause Button UI
+// Pause Button & Pause Modal UI
 var pauseBtn = document.getElementById('pausebtn');
-pauseBtn.onclick = function() {
+var pauseModal = document.getElementById('pausemodal');
+
+function setPaused(state) {
   if (!running || over) return;
-  paused = !paused;
+  paused = state;
   pauseBtn.textContent = paused ? '▶️' : '⏸️';
-  if (!paused) {
+  if (paused) {
+    if (soundEnabled) stopAmbientWind();
+    var days = Math.floor(elapsed);
+    var pstats = document.getElementById('pause-stats');
+    if (pstats) pstats.textContent = '已堅守 ' + days + ' 天，成功閃避 ' + evadedCount + ' 個颱風';
+    if (pauseModal) pauseModal.className = '';
+    showToast('遊戲已暫停');
+  } else {
+    if (pauseModal) pauseModal.className = 'hidden';
+    if (soundEnabled) startAmbientWind();
     last = performance.now();
     raf = requestAnimationFrame(loop);
     showToast('遊戲繼續');
-  } else {
-    showToast('遊戲已暫停');
   }
+}
+
+pauseBtn.onclick = function() {
+  setPaused(!paused);
 };
+
+var resumeBtn = document.getElementById('resumebtn');
+if (resumeBtn) {
+  resumeBtn.onclick = function() {
+    setPaused(false);
+  };
+}
+
+var pauseMenuBtn = document.getElementById('pause-menubtn');
+if (pauseMenuBtn) {
+  pauseMenuBtn.onclick = function() {
+    if (pauseModal) pauseModal.className = 'hidden';
+    document.getElementById('menu').className = 'open';
+  };
+}
 
 // Conformal Mercator Projection Settings (1:1 Aspect Ratio Guaranteed)
 var cv = document.getElementById('cv'), ctx = cv.getContext('2d');
@@ -700,6 +785,7 @@ function init() {
   document.getElementById('daycount').textContent = '第 1 天';
   document.getElementById('time').textContent = fmtDate(START_DATE);
   document.getElementById('pausebtn').textContent = '⏸️';
+  if (pauseModal) pauseModal.className = 'hidden';
   
   // Cleanly reset popup elements
   document.getElementById('picon').textContent = '🇹🇼';
@@ -1238,6 +1324,7 @@ function getEvaluationTitle(days) {
 
 // Game Over Modal Handling
 function showGameOver() {
+  if (pauseModal) pauseModal.className = 'hidden';
   var pop = document.getElementById('popup');
   var days = Math.floor(elapsed);
   
@@ -1337,10 +1424,22 @@ document.getElementById('linebtn').onclick = function() {
 
 // Menu Open/Close
 document.getElementById('menubtn').onclick = function() {
+  if (running && !over && !paused) {
+    setPaused(true);
+  }
   document.getElementById('menu').className = 'open';
 };
 document.getElementById('menuclose').onclick = function() {
   document.getElementById('menu').className = '';
+  if (running && !over && paused && pauseModal) {
+    pauseModal.className = '';
+  }
+};
+
+document.getElementById('githubbtn').onclick = function() {
+  if (running && !over && !paused) {
+    setPaused(true);
+  }
 };
 
 // Start Button
@@ -1351,6 +1450,7 @@ pbtn.onclick = function() {
   if (running) return;
   running = true;
   document.getElementById('popup').className = 'hidden';
+  if (pauseModal) pauseModal.className = 'hidden';
   spawn();
   startAmbientWind();
   last = performance.now();
@@ -1375,7 +1475,7 @@ function release() {
 }
 
 wrapEl.addEventListener('pointerdown', function(e) {
-  if (over || e.target.closest('#popup') || e.target.closest('.top-btns') || e.target.closest('#menu') || active) return;
+  if (over || e.target.closest('#popup') || e.target.closest('#pausemodal') || e.target.closest('.top-btns') || e.target.closest('#menu') || active) return;
   initAudio();
   active = true; pid = e.pointerId;
   wrapEl.setPointerCapture(e.pointerId);
@@ -1395,7 +1495,7 @@ wrapEl.addEventListener('pointermove', function(e) {
 wrapEl.addEventListener('pointerup', function(e) { if (e.pointerId === pid) release(); });
 wrapEl.addEventListener('pointercancel', function(e) { if (e.pointerId === pid) release(); });
 
-// Keyboard Controls (WASD, Arrows, Space, P)
+// Keyboard Controls (WASD, Arrows, Space, P, Esc)
 var keys = {};
 function keyVel() {
   vx = (keys.ArrowRight || keys.d || keys.D ? 1 : 0) - (keys.ArrowLeft || keys.a || keys.A ? 1 : 0);
@@ -1403,6 +1503,15 @@ function keyVel() {
 }
 window.addEventListener('keydown', function(e) {
   initAudio();
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    if (document.getElementById('menu').className === 'open') {
+      document.getElementById('menuclose').click();
+    } else if (running && !over && paused) {
+      setPaused(false);
+    }
+    return;
+  }
   if (e.code === 'Space') {
     e.preventDefault();
     if (!running || over) {

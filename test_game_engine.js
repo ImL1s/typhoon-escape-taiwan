@@ -288,7 +288,11 @@ assert(html.includes("document.getElementById('sharesection').style.display = 'n
 assert(html.includes("https://line.me/R/msg/text/?"), 'LINE share URL must use working format');
 assert(html.includes('href="references/original-typhoon-escape/index.html"'), 'In-game menu must provide clickable hyperlink to original reference');
 assert(html.includes('id="githubbtn"'), 'index.html must include GitHub button in top-btns');
+assert(html.includes('id="pausemodal"'), 'index.html must include Pause Modal dialogue');
+assert(html.includes('id="resumebtn"'), 'Pause modal must have resume button');
 assert(html.includes('https://github.com/ImL1s/typhoon-escape-taiwan'), 'index.html must link to user GitHub repo');
+assert(html.includes('@media (max-width: 480px)'), 'index.html must have mobile responsiveness for HUD and top controls');
+assert(html.includes("pauseModal.className = 'hidden'"), 'init() and state changes must properly hide pause modal');
 assert(html.includes('apple-touch-icon'), 'index.html must include apple-touch-icon for mobile home screen');
 assert(html.includes('https://iml1s.github.io/typhoon-escape-taiwan/'), 'generateShareText must include live game URL for viral sharing');
 assert(html.includes('property="og:image"'), 'index.html must include og:image');
@@ -302,7 +306,104 @@ assetsToCheck.forEach(a => {
   const sz = fs.statSync(ap).size;
   assert(sz > 30000, `Asset assets/${a} must be a valid image (>30KB), got ${sz} bytes`);
 });
-console.log('✓ Game restart, share URLs, social tags, and visual assets verified clean');
+
+// Test interactive Pause Modal, Menu and GitHub state transitions
+const scriptContent = html.match(/<script(?![^>]*type="application\/json")[^>]*>([\s\S]*?)<\/script>/)[1];
+const domElements = {};
+function createMockEl(id, tag = 'div') {
+  return {
+    id,
+    tagName: tag.toUpperCase(),
+    className: id === 'pausemodal' ? 'hidden' : '',
+    style: { setProperty: () => {} },
+    textContent: id === 'mapdata' ? mapDataMatch[1] : '',
+    innerHTML: '',
+    children: [],
+    onclick: null,
+    click() { if (this.onclick) this.onclick({ preventDefault: () => {} }); },
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    querySelector: () => createMockEl('child'),
+    querySelectorAll: () => [],
+    closest: () => null,
+    getBoundingClientRect: () => ({ left: 0, top: 0, width: 100, height: 100 }),
+    setPointerCapture: () => {},
+    remove: () => {},
+    appendChild: (child) => child
+  };
+}
+
+const mockIds = [
+  'cv', 'pad', 'knob', 'wrap', 'ticker', 'popup', 'pausemodal', 'menu', 'toast',
+  'soundbtn', 'pausebtn', 'menubtn', 'githubbtn', 'resumebtn', 'pause-menubtn',
+  'menuclose', 'pbtn', 'copybtn', 'threadbtn', 'xbtn', 'linebtn', 'picon',
+  'ptitle', 'psub', 'pstats', 'res-days', 'res-evaded', 'res-date', 'res-hit',
+  'res-title-wrap', 'res-title', 'evadedcount', 'daycount', 'time', 'date',
+  'days', 'bestbadge', 'bestdays', 'pause-stats', 'mapdata'
+];
+mockIds.forEach(id => { domElements[id] = createMockEl(id); });
+
+const winListeners = {};
+const mockScope = {
+  Path2D: class { moveTo() {} lineTo() {} closePath() {} },
+  window: {
+    innerWidth: 420, innerHeight: 720, devicePixelRatio: 1,
+    addEventListener: (t, fn) => { winListeners[t] = fn; },
+    open: () => {}
+  },
+  document: {
+    documentElement: { style: { setProperty: () => {} } },
+    getElementById: (id) => domElements[id] || createMockEl(id),
+    createElement: (tag) => createMockEl('dyn', tag)
+  },
+  navigator: { clipboard: { writeText: () => Promise.resolve() } },
+  localStorage: { getItem: () => null, setItem: () => {} },
+  performance: { now: () => 1000 },
+  requestAnimationFrame: () => 1,
+  cancelAnimationFrame: () => {},
+  AudioContext: class {
+    constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; }
+    createGain() { return { gain: { setValueAtTime: () => {}, exponentialRampToValueAtTime: () => {}, linearRampToValueAtTime: () => {} }, connect: () => {} }; }
+    createOscillator() { return { frequency: { setValueAtTime: () => {}, exponentialRampToValueAtTime: () => {} }, connect: () => {}, start: () => {}, stop: () => {} }; }
+    createBufferSource() { return { buffer: null, loop: false, connect: () => {}, start: () => {}, stop: () => {} }; }
+    createBuffer() { return { getChannelData: () => new Float32Array(100) }; }
+    createBiquadFilter() { return { frequency: { setValueAtTime: () => {} }, Q: { setValueAtTime: () => {} }, connect: () => {} }; }
+    resume() {}
+  }
+};
+mockScope.cv = domElements.cv;
+domElements.cv.getContext = () => ({
+  clearRect: () => {}, fillRect: () => {}, strokeRect: () => {}, rect: () => {}, clip: () => {},
+  beginPath: () => {}, closePath: () => {}, moveTo: () => {}, lineTo: () => {},
+  stroke: () => {}, fill: () => {}, arc: () => {}, save: () => {},
+  restore: () => {}, translate: () => {}, rotate: () => {}, scale: () => {},
+  fillText: () => {}, setLineDash: () => {}, createRadialGradient: () => ({ addColorStop: () => {} }),
+  createLinearGradient: () => ({ addColorStop: () => {} }),
+  setTransform: () => {}
+});
+
+new Function(...Object.keys(mockScope), scriptContent)(...Object.values(mockScope));
+
+assert.strictEqual(domElements.pausemodal.className, 'hidden', 'Pause modal must start hidden');
+domElements.pbtn.click();
+assert.strictEqual(domElements.popup.className, 'hidden', 'Popup must hide on start');
+domElements.pausebtn.click();
+assert.strictEqual(domElements.pausebtn.textContent, '▶️', 'Pause button should show play icon when paused');
+assert.strictEqual(domElements.pausemodal.className, '', 'Pause modal must show when paused');
+domElements.resumebtn.click();
+assert.strictEqual(domElements.pausemodal.className, 'hidden', 'Resume button must hide pause modal');
+domElements.githubbtn.click();
+assert.strictEqual(domElements.pausemodal.className, '', 'Clicking GitHub button must pause and show modal');
+winListeners.keydown({ code: 'Space', preventDefault: () => {} });
+assert.strictEqual(domElements.pausemodal.className, 'hidden', 'Space key must unpause');
+domElements.menubtn.click();
+assert.strictEqual(domElements.menu.className, 'open', 'Menu must open');
+winListeners.keydown({ key: 'Escape', preventDefault: () => {} });
+assert.strictEqual(domElements.menu.className, '', 'Escape key must close menu');
+winListeners.keydown({ key: 'Escape', preventDefault: () => {} });
+assert.strictEqual(domElements.pausemodal.className, 'hidden', 'Escape key while paused unpauses game');
+
+console.log('✓ Game restart, share URLs, social tags, visual assets, and Pause Modal state machine verified clean');
 
 console.log('=== 8. Testing Reference Project Integrity (Original Typhoon Escape) ===');
 const refDir = path.join(__dirname, 'references/original-typhoon-escape');
@@ -413,6 +514,7 @@ const serverPy = fs.readFileSync(serverScriptPath, 'utf8');
 assert(!serverPy.includes(forbiddenPrefix), 'server.py must not contain hardcoded local user paths');
 assert(serverPy.includes('/index.html'), 'server.py must serve Taiwan flagship URL');
 assert(serverPy.includes('/references/original-typhoon-escape/index.html'), 'server.py must serve original reference URL');
+assert(serverPy.includes('https://github.com/ImL1s/typhoon-escape-taiwan'), 'server.py must print GitHub repository URL');
 console.log('✓ Tooling scripts (build_game.py, test_game_engine.js, server.py) verified 100% portable with zero hardcoded user paths');
 
 console.log('--- ALL GAME ENGINE AND DOCUMENTATION TESTS PASSED WITH FLYING COLORS! ---');

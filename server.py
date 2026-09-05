@@ -27,6 +27,7 @@ def start_server():
                 print("=" * 66)
                 print(f" 🎮 台灣在地化旗艦版:  {url_tw}")
                 print(f" 🇯🇵 日本原版離線對照:  {url_orig}")
+                print(f" 🐙 GitHub 專案倉庫:   https://github.com/ImL1s/typhoon-escape-taiwan")
                 print(f" 📂 專案根目錄路徑:    {DIRECTORY}")
                 print(" 按下 Ctrl+C 即可關閉伺服器")
                 print("=" * 66)
