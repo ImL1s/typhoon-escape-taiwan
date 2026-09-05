@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>台灣大逃亡：颱風來啦！ - 開著台灣島逃離西北太平洋暴風圈</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌀</text></svg>">
+<link rel="apple-touch-icon" href="assets/icon.jpg">
 <meta name="description" content="全島開動！駕駛台灣島在西北太平洋狂暴颱風陣中蛇行漂移，依靠護國神山中央山脈抵擋狂風暴雨，挑戰存活極限！">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://iml1s.github.io/typhoon-escape-taiwan/">
@@ -1222,6 +1223,10 @@ function showGameOver() {
     document.getElementById('bestdays').textContent = bestDays + ' 天';
   }
   
+  if (!hit) {
+    hit = { no: 1, intensity: '強烈颱風', name: '強烈颱風', region: '全島沿海' };
+  }
+  
   document.getElementById('picon').textContent = '💥';
   document.getElementById('ptitle').textContent = '颱風登陸！風雨肆虐全台！';
   document.getElementById('psub').textContent = '面對大自然的狂暴威力，台灣島光榮迎戰到底！';
@@ -1252,10 +1257,12 @@ function showToast(msg) {
 function generateShareText() {
   var days = Math.floor(elapsed);
   var title = getEvaluationTitle(days);
+  var hitDesc = hit ? ('第 ' + hit.no + ' 號颱風『' + hit.name + '』於【' + hit.region + '】登陸。\n') : '';
   return '🌊【台灣大逃亡：颱風來啦！】\n' +
          '我駕駛整座台灣島在西北太平洋狂暴漂移，在颱風季堅守了 ' + days + ' 天！\n' +
          '閃避了 ' + evadedCount + ' 個強烈颱風，榮獲評級：' + title + '！\n' +
-         '第 ' + hit.no + ' 號颱風『' + hit.name + '』於【' + hit.region + '】登陸。\n\n' +
+         hitDesc + '\n' +
+         '🎮 免費線上立即玩：https://iml1s.github.io/typhoon-escape-taiwan/\n' +
          '#台灣大逃亡 #颱風エスケープ #護國神山';
 }
 

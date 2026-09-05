@@ -281,13 +281,26 @@ assert(spawnedCount >= 15, `Expected >=15 spawns, got ${spawnedCount}`);
 assert(dissipatedCount >= 10, `Expected >=10 dissipations, got ${dissipatedCount}`);
 console.log(`✓ Typhoon simulation passed 1000 frames without NaN. Spawned: ${spawnedCount}, Dissipated/Exited: ${dissipatedCount}`);
 
-console.log('=== 7. Testing Restart State Cleanliness in index.html ===');
+console.log('=== 7. Testing Restart State Cleanliness, Social Sharing & Visual Assets in index.html ===');
 assert(html.includes("document.getElementById('picon').textContent = '🇹🇼'"), 'init() must reset picon');
 assert(html.includes("document.getElementById('pstats').style.display = 'none'"), 'init() must hide pstats');
 assert(html.includes("document.getElementById('sharesection').style.display = 'none'"), 'init() must hide sharesection');
 assert(html.includes("https://line.me/R/msg/text/?"), 'LINE share URL must use working format');
 assert(html.includes('href="references/original-typhoon-escape/index.html"'), 'In-game menu must provide clickable hyperlink to original reference');
-console.log('✓ Game restart, share URLs, and in-game reference hyperlink verified clean');
+assert(html.includes('apple-touch-icon'), 'index.html must include apple-touch-icon for mobile home screen');
+assert(html.includes('https://iml1s.github.io/typhoon-escape-taiwan/'), 'generateShareText must include live game URL for viral sharing');
+assert(html.includes('property="og:image"'), 'index.html must include og:image');
+assert(html.includes('name="twitter:card"'), 'index.html must include twitter:card');
+
+// Check promotional and in-game assets
+const assetsToCheck = ['banner.jpg', 'icon.jpg', 'gameplay.png', 'gameplay_action.png'];
+assetsToCheck.forEach(a => {
+  const ap = path.join(__dirname, 'assets', a);
+  assert(fs.existsSync(ap), `Asset assets/${a} must exist`);
+  const sz = fs.statSync(ap).size;
+  assert(sz > 30000, `Asset assets/${a} must be a valid image (>30KB), got ${sz} bytes`);
+});
+console.log('✓ Game restart, share URLs, social tags, and visual assets verified clean');
 
 console.log('=== 8. Testing Reference Project Integrity (Original Typhoon Escape) ===');
 const refDir = path.join(__dirname, 'references/original-typhoon-escape');
